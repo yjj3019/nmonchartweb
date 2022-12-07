@@ -1,0 +1,93 @@
+#!/bin/sh
+
+export basedir="/data/iso/nmonchart"
+
+mv $basedir/nmon_upload/*.nmon $basedir/nmoncharttmp  2>/dev/null
+if [[ $? == 1 ]]
+then
+        exit
+fi
+
+
+for i in $basedir/nmoncharttmp/*nmon
+do
+BASE=`basename $i .nmon`
+DIR=$basedir/nmonchart
+OUT=$DIR/$BASE.html
+/usr/sbin/nmonchart $i $OUT &
+done
+
+wait
+chmod ugo+r $DIR/*.html
+chown www-data.www-data $DIR/*.html
+
+mv $basedir/nmoncharttmp/*.nmon $basedir/nmonchart_trash  2>/dev/null
+
+main()
+{
+echo "<html><title>nmonchart</title>"
+echo "<body>"
+
+echo "<script>setTimeout(functio(){location.reload();},30000);</script>"
+echo "<h2>nmonchart generated nmon Graphs</h2>"
+
+echo "<ul>"
+echo "<li> Last updated at " `date`
+echo "<li> That page is updated every 30s. "
+echo "<li> Small Sample graphs that loads quickly <a href='../sampleC.html' target=_blank>sampleC.html</a>"
+
+echo "<script>"
+echo "function showPopUp() {"
+echo ""
+echo "var width = 600;"
+echo "var height = 200;"
+echo ""
+echo "var left = (window.screen.width / 2) - (width/2);"
+echo "var top = (window.screen.height / 4);"
+echo ""
+echo "var windowStatus = 'width='+width+', height='+height+', left='+left+', top='+top+', scrollbars=yes, status=yes, resizable=yes, titlebar=yes';"
+echo ""
+echo "const url = '../nmon_upload.html';"
+echo ""
+echo "window.open(url, 'hello popup', windowStatus);"
+echo "}"
+echo "</script>"
+echo "<div>"
+echo "<li> Upload most nmon data files at <a href='javascript:showPopUp()'> [ Click ] </a>"
+echo "</div>"
+echo "</ul>"
+echo "<ol>"
+
+for i in `ls -1 *_*.html | awk -F _ '{print $1  }' | sort | uniq`
+do
+echo "<li><b>" $i "</b>"
+
+        echo "  <ul>"
+        for j in `ls $i*.html`
+        do
+                NUM=`grep Snapshots $j | sed 's/<li>//'`
+                AIX=`grep "AIX Level" $j | sed 's/<li>//'`
+                LINUX=`grep "Linux" $j | sed 's/<li>//'`
+                LINUXMORE=""
+                if [[ $AIX == "" ]]
+                then
+                        LINUXMORE="Linux."
+                fi
+
+                echo "  <li><a href=\""$j"\">" $j "</a> - $NUM snapshots. $AIX $LINUX $LINUXMORE"
+        done
+        echo "  </ul>"
+
+done
+echo "</ol>"
+
+
+echo "</body></html>"
+}
+
+cd $DIR
+main > $basedir/nmonchart/index.html
+chmod ugo+r $basedir/nmonchart/index.html
+chown www-data.www-data $basedir/nmonchart/index.html
+
+exit 0
