@@ -5,8 +5,10 @@ Link : https://nmon.sourceforge.net/pmwiki.php?n=Site.Nmonchart<br>
 The "nmonchart_cron" file has been modified from the existing source and some files have been added.<br>
 <br>
 How to use.<br>
-nmonchart files go to /usr/sbin <br>
+Download the nmonchart file.
+Unzip and move the nmonchart file to /usr/sbin path. <br>
 httpd, php, cron services are required. <br>
+Move the files uploaded to git to the httpd path. <
 nmonchart, nmoncharttmp, nmonchart_trash, nmonchart Create a directory. <
 <br>
 Sample :  <br>
