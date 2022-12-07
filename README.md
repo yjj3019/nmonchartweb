@@ -7,6 +7,7 @@ The "nmonchart_cron" file has been modified from the existing source and some fi
 How to use.<br>
 nmonchart files go to /usr/sbin <br>
 httpd, php, cron services are required. <br>
+nmonchart, nmoncharttmp, nmonchart_trash, nmonchart Create a directory. <
 <br>
 Sample :  <br>
 NMONChart <br>
