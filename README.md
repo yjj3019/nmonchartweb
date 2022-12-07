@@ -8,7 +8,7 @@ How to use.<br>
 Download the nmonchart file.
 Unzip and move the nmonchart file to /usr/sbin path. <br>
 httpd, php, cron services are required. <br>
-Move the files uploaded to git to the httpd path. <
+Move the files uploaded to git to the httpd path. <br>
 nmonchart, nmoncharttmp, nmonchart_trash, nmonchart Create a directory. 
 <br><br>
 Sample :  <br>
