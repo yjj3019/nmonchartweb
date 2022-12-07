@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> NMON Chart </title>
+
+<script>
+function showPopUp() {
+
+        var width = 600;
+        var height = 200;
+
+        var left = (window.screen.width / 2) - (width/2);
+        var top = (window.screen.height / 4);
+
+        var windowStatus = 'width='+width+', height='+height+', left='+left+', top='+top+', scrollbars=yes, status=yes, resizable=yes, titlebar=yes';
+
+        const url = "nmon_upload.html";
+
+        window.open(url, "hello popup", windowStatus);
+}
+</script>
+
+</head>
+<body>
+ <div>
+        <h2> NMONChart </h2>
+        <li> Please upload only nmon files.
+        <li> Please specify the extension as .nmon.
+        <li> Uploaded files are converted every 1 minutes.
+        <li> Small Sample graphs that loads quickly <a href='./sampleC.html' target=_blank>sampleC.html</a>
+        <li> Upload most nmon data files at <a href='javascript:showPopUp()'> [ Click ] </a>
+        <li> NMON Chart List <a href="nmonchart/index.html" target=_blank> NMON Chart Result List </a>
+  </div>
+</body>
+</html>
